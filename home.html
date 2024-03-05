@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Well Come to Note Book</title>
+</head>
+<body>
+    <header>
+        <h1>Well come to Note Book</h1>
+    </header>
+
+
+    <div class="text-center">
+      <input type="txt" class="form-label" id="hidden_input">id
+      <div>
+        <label for="" class="form-label">Name</label>
+        <input for="" class="form-label" id="name">
+      </div>
+      <div>
+        <label for="" class="form-label" id="email">Email</label>
+        <input for="" class="form-label"> 
+      </div>
+      <div>
+        <button class="btn btn-primary" id="update_button" onclick="update_data">update</button>
+      </div>
+    </div>
+
+      
+      <div id="v_data" class="container border p-5 mt-3">
+      </div>
+      <div class="text-center">
+     
+     <button class = "main-btn secondary-btn ms-2" onclick="logout()" >LogOut</button> 
+    </div>
+
+      <script>
+        let name, email, password;
+        
+        const viewData = () =>{
+          let v_data = document.getElementById("v_data");
+          user_record = JSON.parse(localStorage.getItem("users"))
+          let html = "<h1 class='text-center' >User Data</h1> <table class='table-striped table-bordered'>"
+            html = html + `<thead class='table-warning'>
+            <tr>
+              <th class=''> ID </th>
+              <th> Name</th>
+              <th> Email </th>
+              <th> action </th>
+              <th> action </th>
+
+              
+            </tr>
+            <thead>
+            </tbody`
+            user_record.map((user_data, index)=>{
+
+              html = html + `
+              <tr>
+                <td>${user_data.id}</td>
+                <td>${user_data.name}</td>
+                <td>${user_data.email}</td>
+                <td><button id="edit" class="main-btn primary-btn" onclick="updateUserList(${user_data.id})">update</button></td>
+                <td>  <button class = "main-btn secondary-btn ms-2" onclick="delete_user(${user_data.id})" >delete</button> </td>
+                </tr>`
+            })
+          html = html + "<tbody></table>"
+          v_data.innerHTML = html;
+    }
+    viewData();
+
+
+    const delete_user = (id)=> {
+
+      console.log(id);
+      let user_record = JSON.parse(localStorage.getItem("users"));
+
+     let remainingUser = [];
+      user_record.map((user, index)=>{
+        if(id != user.id){
+          remainingUser.push(user)
+        }
+        
+      })
+      console.log(remainingUser);
+      localStorage.setItem("users",JSON.stringify(remainingUser));
+      window.location.reload();
+
+    }
+    // const editUserList = (id)=> {
+    //   // console.log(id);
+    //   user_record = JSON.parse(localStorage.getItem("users"))
+    //   // edit_user = [];
+
+    //   // if(){
+
+    //   // }
+    // }
+
+    const updateUserList =(id) =>{
+    const hidden = document.getElementById("hidden")
+    let user_record = JSON.parse(localStorage.getItem("users"));
+    
+    user_record.map((user,index)=>{
+        if(user.id == id){
+            hidden.value=user.id;
+            name.value = user.name;
+            email.value = user.email;
+            console.log(user)
+        }
+    })
+}
+
+const update_data = () =>{
+    const hidden = document.getElementById("hidden")
+    let AfterUpdateData = []; 
+    let user_record = JSON.parse(localStorage.getItem("users"));
+    user_record.map((user,index)=>{
+        if(user.id !=hidden.value){
+            AfterUpdateData.push(updateUserList)
+        }
+        
+        else{
+            let user = {
+                id: hidden,
+                name : name,
+                email : email,  
+            }
+            AfterUpdateData.push(user);
+        }
+    })
+    localStorage.setItem("users",JSON.stringify(AfterUpdateData));  
+    window.location.reload();  
+}
+
+
+      </script>
+</body>
+</html>
