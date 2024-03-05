@@ -114,11 +114,11 @@
 
 const update_data = () =>{
     const hidden = document.getElementById("hidden")
-    let AfterUpdateData = []; 
+    let dataUpdate = []; 
     let user_record = JSON.parse(localStorage.getItem("users"));
     user_record.map((user,index)=>{
         if(user.id !=hidden.value){
-            AfterUpdateData.push(updateUserList)
+          dataUpdate.push(updateUserList)
         }
         
         else{
@@ -127,10 +127,10 @@ const update_data = () =>{
                 name : name,
                 email : email,  
             }
-            AfterUpdateData.push(user);
+            dataUpdate.push(user);
         }
     })
-    localStorage.setItem("users",JSON.stringify(AfterUpdateData));  
+    localStorage.setItem("users",JSON.stringify(dataUpdate));  
     window.location.reload();  
 }
 
