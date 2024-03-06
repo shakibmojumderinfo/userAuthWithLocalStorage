@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div id="emailDiv" class="container pt-3 border-2 col-6 col-md-6 col-12" style="display: block;">
+        <h2 class="pt-3">
+            Forget Your Password?
+        </h2>
+        <input type="email" class="form-control" placeholder="Enter your email" id="email">
+        <br>
+        
+        <button onclick="checkEmail()"> Submit </button>
+    </div>
+    <br>
+    <br>
+
+    <div id="resetDiv" style="display: none;" class="container pt-3 border-2 col-6 col-md-6 col-12">
+    <input type="text" placeholder="Enter new Password" class=" form-control input-group-sm" id="new_pass">
+    <br>
+    <input class="form-control" type="text" placeholder="re - enter password" id="reEnterPass">
+    <br>
+
+    <button type="button" class=" primary-btn" id="submit" onclick="resetPass()">Change Password</button>
+    </div>
+
+<script>
+
+    
+    const checkEmail = () => {
+    let email = document.getElementById("email");
+    let resetDiv = document.getElementById("resetDiv");
+    let emailDiv = document.getElementById("emailDiv");
+    let user_record = JSON.parse(localStorage.getItem("users"));
+    // let user_record = new Array();
+    let existEmail = false;
+
+    user_record.map((user, index) => {
+        // console.log(user);
+        if(user.email == email.value){
+            console.log(user);
+            existEmail = true;
+            emailDiv.style.display = "none";
+            resetDiv.style.display = "block";
+        }
+    }) 
+    user_record = JSON.parse(localStorage.getItem("users"));
+    if(existEmail){
+        alert("email found You can Reset Your pass");
+    }
+    else{
+        alert("Wrong Email");
+    }
+    }
+// end
+    const resetPass = () => {
+        let newPass = document.getElementById("new_pass");
+        let reEnterPass = document.getElementById("reEnterPass");
+
+       
+        let user_record = JSON.parse(localStorage.getItem("users"));
+
+        updatePass = [];
+        
+        if(newPass.value === reEnterPass.value){
+            
+            user_record.map((user, index) => {
+                if (email.value == user.email){
+    
+                    let _user = {
+                      ...user,
+                      password: newPass.value,
+                    }
+                    updatePass.push(_user);
+                    window.location.reload();
+                    window.location.href = "loginPage.html"
+                }
+                else{
+                    updatePass.push(user); 
+            }
+            })
+            localStorage.setItem("users", JSON.stringify(updatePass));
+            console.log(updatePass);
+        }
+        else{
+            alert("do not match your pass plz re-type pass")
+    }
+        
+    }
+    
+
+</script>
+</body>
+</html>

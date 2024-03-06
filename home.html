@@ -7,33 +7,42 @@
     <title>Well Come to Note Book</title>
 </head>
 <body>
-    <header>
-        <h1>Well come to Note Book</h1>
+    <header id="main_header">
+        <h1 id="head_text" class="container text-center">Well come to Note Book</h1>
     </header>
-
-
-    <div class="text-center">
-      <input type="txt" class="form-label" id="hidden_input">id
-      <div>
-        <label for="" class="form-label">Name</label>
-        <input for="" class="form-label" id="name">
-      </div>
-      <div>
-        <label for="" class="form-label" id="email">Email</label>
-        <input for="" class="form-label"> 
-      </div>
-      <div>
-        <button class="btn btn-primary" id="update_button" onclick="update_data">update</button>
-      </div>
-    </div>
-
-      
-      <div id="v_data" class="container border p-5 mt-3">
-      </div>
-      <div class="text-center">
+    <br>
+    <hr>
      
-     <button class = "main-btn secondary-btn ms-2" onclick="logout()" >LogOut</button> 
+    <!-- <a id="log_out_btn" type="button" href="loginPage.html" onclick="logout()" >LogOut</a>  -->
+  
+
+  <div class=" container col-6 col-md-6 col-12 ">
+    
+        <label for="" class="form-label"></label>
+      <input type="hidden" class="form-control" id="input_id">
+      
+        <label for="" class="form-label"></label>
+        <input class="form-control" id="name" placeholder="Enter your name">
+      
+      <div style="margin-top: 10px;">
+        <label for=""></label>
+        <input class="form-control" id="email" placeholder="enter your email"> 
+      
+    <br>
+      
+      
+        <button class="btn btn-danger" id="update_button" onclick="update_data()">Update</button>
+      </div>
     </div>
+
+    <h1 class="container text-center"  >User Data</h1>
+    <hr>
+      
+      <div id="v_data" class="container pt-3 border-2 col-6 col-md-6 col-12 " style="margin-left: 30rem;">
+      </div>
+      
+
+    <div> <hr></div>
 
       <script>
         let name, email, password;
@@ -41,28 +50,29 @@
         const viewData = () =>{
           let v_data = document.getElementById("v_data");
           user_record = JSON.parse(localStorage.getItem("users"))
-          let html = "<h1 class='text-center' >User Data</h1> <table class='table-striped table-bordered'>"
+          let html = "<table class='table-striped table-bordered'>"
             html = html + `<thead class='table-warning'>
-            <tr>
-              <th class=''> ID </th>
-              <th> Name</th>
-              <th> Email </th>
-              <th> action </th>
-              <th> action </th>
+              <tr>
+                <th class='text-center' colspan='5'><h2>User Data</h2></th>
+              </tr>
+            <tr class='''>
+              <th class='text-center'> ID </th>
+              <th class='text-center'> Name</th>
+              <th class='text-center'> Email </th>
+              <th colspan ='2' class='text-center'> action </th>
 
-              
             </tr>
-            <thead>
-            </tbody`
+            <thead class=''>
+            </tbody>`
             user_record.map((user_data, index)=>{
 
               html = html + `
-              <tr>
+              <tr class=''>
                 <td>${user_data.id}</td>
                 <td>${user_data.name}</td>
                 <td>${user_data.email}</td>
-                <td><button id="edit" class="main-btn primary-btn" onclick="updateUserList(${user_data.id})">update</button></td>
-                <td>  <button class = "main-btn secondary-btn ms-2" onclick="delete_user(${user_data.id})" >delete</button> </td>
+                <td><button id="Edit" class="main-btn btn-primary" onclick="updateUserList(${user_data.id})">edit</button></td>
+                <td>  <button class = "main-btn btn-danger" onclick="delete_user(${user_data.id})" >X</button> </td>
                 </tr>`
             })
           html = html + "<tbody></table>"
@@ -99,39 +109,46 @@
     // }
 
     const updateUserList =(id) =>{
-    const hidden = document.getElementById("hidden")
+    const input_id = document.getElementById("input_id")
+    const name = document.getElementById("name")
+    const email = document.getElementById("email")
     let user_record = JSON.parse(localStorage.getItem("users"));
     
     user_record.map((user,index)=>{
-        if(user.id == id){
-            hidden.value=user.id;
-            name.value = user.name;
-            email.value = user.email;
-            console.log(user)
+        if(user.id == id  ){
+          input_id.value=user.id;
+          name.value = user.name;
+          email.value = user.email;
         }
     })
 }
 
 const update_data = () =>{
-    const hidden = document.getElementById("hidden")
+    const input_id = document.getElementById("input_id");
+    const email = document.getElementById("email");
+    const name = document.getElementById("name");
     let dataUpdate = []; 
     let user_record = JSON.parse(localStorage.getItem("users"));
-    user_record.map((user,index)=>{
-        if(user.id !=hidden.value){
-          dataUpdate.push(updateUserList)
+    user_record.map((user,index,)=>{
+        if(user.id != input_id.value){
+          dataUpdate.push(user)
         }
         
         else{
-            let user = {
-                id: hidden,
-                name : name,
-                email : email,  
+            let _user = {
+              ...user,
+               
+                name : name.value,
+                email : email.value,  
+      
             }
-            dataUpdate.push(user);
+            dataUpdate.push(_user);
         }
     })
+    console.log(dataUpdate);
     localStorage.setItem("users",JSON.stringify(dataUpdate));  
     window.location.reload();  
+    
 }
 
 
