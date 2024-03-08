@@ -83,6 +83,28 @@
     
   // }
 
+  // function userCheckPageAccess() {
+  //   user_record = JSON.parse(localStorage.getItem("users"))
+  //     var isLoggedIn = false; 
+
+  //     user_record.map((user, index) => {
+
+  //     if (isLoggedIn) {
+  //       // Redirect to home page
+  //       window.location.href = '../homePage/home.html?search=';
+  //     } else {
+  //       // Redirect to login page
+  //       window.location.href = './index.html';
+  //     }
+  //   })
+  //   }
+  //   userCheckPageAccess();
+  var isSignedUp = JSON.parse(localStorage.getItem('users'));
+
+if (!isSignedUp) {
+  // window.location.reload();
+}
+
 
 
     function userCheck(){
