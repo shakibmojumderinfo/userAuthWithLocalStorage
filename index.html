@@ -65,7 +65,7 @@
           </div>
           <hr>
           <div class="ps-5">
-            <a id="existAcc" type="submit" class="btn btn-success col-10" type="btn" href="/loginPage">Alraedy have an account?</a>
+            <a id="existAcc" type="submit" class="btn btn-success col-10" type="btn" href="/userAuthWithLocalStorage/loginPage">Alraedy have an account?</a>
           </div>
     </form>
 </section>
@@ -101,7 +101,7 @@
         });
         localStorage.setItem("users",JSON.stringify(user_record));
         console.log(user_record);
-        window.location.href = "/loginPage"
+        window.location.href = "userAuthWithLocalStorage/loginPage"
         alert("success")
   }
   else{
