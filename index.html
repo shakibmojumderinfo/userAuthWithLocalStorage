@@ -71,6 +71,26 @@
 </section>
 
 <script>
+let config={
+    githubRepoPath : "userAuthWithLocalStorage",
+    isGitHub : true
+}
+
+const pageRedirect = (path) =>{
+    if(config.isGitHub){
+        window.location.href= `/${config.githubRepoPath}/${path}`
+    }
+    else{
+        window.location.href= `/${path}`
+    }
+}
+
+console.log(config)
+
+
+
+
+
   function saveData(){
     let name, email, password, id;
 
