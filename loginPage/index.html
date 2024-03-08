@@ -62,7 +62,7 @@
             <button type="submit" class="btn btn-primary mt-2 col-12" id="loginBtn" onclick="userCheck()">Log in</button>
           </div>
           <div class="mt-3 text-center text-2">
-            <a id="frgt-pass" class="frgt-pass" href="../forgotPass/forgotPass.html">Forgotten password?</a>
+            <a id="frgt-pass" class="frgt-pass" href="/forgotPass/forgotPass.html">Forgotten password?</a>
           </div>
           <hr>
           <div class="ps-5">
@@ -128,7 +128,7 @@ if (!isSignedUp) {
       })
 
       if (isLoggin){
-        window.location.href = "/homePage/home.html";
+        window.location.href = "/homePage";
         alert('login successfull');
       }
       else{
